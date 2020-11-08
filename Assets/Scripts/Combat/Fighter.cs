@@ -7,7 +7,7 @@ using RPGProject.Core;
 namespace RPGProject.Combat
 {
 
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
         Transform target;
@@ -22,8 +22,8 @@ namespace RPGProject.Combat
             }
             else
             {
-
-                GetComponent<Mover>().Stop();
+                GetComponent<Mover>().Cancel();
+                GetComponent<Animator>().SetTrigger("attack");
 
             }
 
