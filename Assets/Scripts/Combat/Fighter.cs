@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGProject.Movement;
 using RPGProject.Core;
+using System;
 
 namespace RPGProject.Combat
 {
@@ -10,10 +11,15 @@ namespace RPGProject.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
+        [SerializeField] float damage = 5f;
+        [SerializeField] float timeBetweenAttacks = 1f;
         Transform target;
+
+        float timeFromLastAttack = 0f;
 
         private void Update()
         {
+            timeFromLastAttack += Time.deltaTime;
             if(target == null) return;
             
             if (!GetIsInRange())
@@ -23,10 +29,19 @@ namespace RPGProject.Combat
             else
             {
                 GetComponent<Mover>().Cancel();
-                GetComponent<Animator>().SetTrigger("attack");
+                AttackBehaviour();
 
             }
 
+        }
+
+        private void AttackBehaviour()
+        {
+            if(timeFromLastAttack >= timeBetweenAttacks){
+
+                GetComponent<Animator>().SetTrigger("attack");
+                timeFromLastAttack = 0f;
+            }
         }
 
         private bool GetIsInRange()
@@ -43,6 +58,15 @@ namespace RPGProject.Combat
 
         public void Cancel(){
             target = null;
+        }
+
+        //Animator Event
+        public void Hit(){
+
+            if(target != null){
+                target.GetComponent<Health>().TakeDamage(damage);
+            }
+
         }
     }
 

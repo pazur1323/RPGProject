@@ -19,7 +19,7 @@ namespace RPGProject.Movement
         void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
-            anim = FindObjectOfType<Animator>();
+            anim = GetComponent<Animator>();
         }
 
         // Update is called once per frame
