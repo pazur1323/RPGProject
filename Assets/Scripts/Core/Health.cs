@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPGProject.Combat{
+namespace RPGProject.Core{
 
     public class Health : MonoBehaviour {
 
@@ -12,6 +12,10 @@ namespace RPGProject.Combat{
         public bool IsDead(){
 
             return isDead;
+        }
+
+        public float MyHealth(){
+            return health;
         }
         
         public void TakeDamage(float damage){
@@ -35,6 +39,7 @@ namespace RPGProject.Combat{
 
                 isDead = true;
                 GetComponent<Animator>().SetTrigger("die");
+                GetComponent<ActionScheduler>().CancelCurrentAction();
 
             }
         }
