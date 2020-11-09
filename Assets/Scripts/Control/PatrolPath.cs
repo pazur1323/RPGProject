@@ -12,13 +12,13 @@ namespace RPGProject.Control{
             for(int i=0; i<transform.childCount;i++)
             {
                 int j = GetNextIndex(i);
-                Gizmos.DrawSphere(GetPosition(i), waypointGizmosRadius);
-                Gizmos.DrawLine(GetPosition(i), GetPosition(j));
+                Gizmos.DrawSphere(GetWaypoint(i), waypointGizmosRadius);
+                Gizmos.DrawLine(GetWaypoint(i), GetWaypoint(j));
                 
             }
         }
 
-        private int GetNextIndex(int i){
+        public int GetNextIndex(int i){
 
             if(i+1 == transform.childCount){
 
@@ -31,7 +31,7 @@ namespace RPGProject.Control{
 
         }
 
-        private Vector3 GetPosition(int i)
+        public Vector3 GetWaypoint(int i)
         {
             return transform.GetChild(i).position;
         }
